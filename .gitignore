@@ -4,9 +4,11 @@
 ### Others
 *.icloud
 .icloud
+.omc
 bower_components/
 node_modules/
 npm-debug.log
+package-lock.json
 src/bld
 demo
 
