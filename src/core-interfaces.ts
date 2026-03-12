@@ -472,6 +472,12 @@ export interface ThemeProps {
 	 * @default 'Calibri'
 	 */
 	bodyFontFace?: string
+	/**
+	 * Hyperlink color (hex value without hash)
+	 * @example 'FF0000'
+	 * @default '0563C1'
+	 */
+	hlinkColor?: string
 }
 
 // image / media ==================================================================================
