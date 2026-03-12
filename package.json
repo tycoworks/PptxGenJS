@@ -1,5 +1,5 @@
 {
-	"name": "pptxgenjs",
+	"name": "@tycoworks/pptxgenjs",
 	"version": "4.0.1",
 	"author": {
 		"name": "Brent Ely",
@@ -65,9 +65,12 @@
 		"typescript": "^5.6.3",
 		"typescript-eslint": "^8.31.0"
 	},
+	"publishConfig": {
+		"access": "public"
+	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/gitbrent/PptxGenJS.git"
+		"url": "git+https://github.com/tycoworks/PptxGenJS.git"
 	},
 	"keywords": [
 		"es6-powerpoint",
@@ -91,6 +94,6 @@
 		"typescript-powerpoint"
 	],
 	"bugs": {
-		"url": "https://github.com/gitbrent/PptxGenJS/issues"
+		"url": "https://github.com/tycoworks/PptxGenJS/issues"
 	}
 }
