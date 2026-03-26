@@ -486,7 +486,7 @@ function slideObjectToXml (slide: PresSlide | SlideLayout): string {
 					strSlideXml += '</a:custGeom>'
 				} else {
 					strSlideXml += '<a:prstGeom prst="' + slideItemObj.shape + '"><a:avLst>'
-					if (slideItemObj.options.rectRadius) {
+					if (slideItemObj.options.rectRadius != null) {
 						strSlideXml += `<a:gd name="adj" fmla="val ${Math.round((slideItemObj.options.rectRadius * EMU * 100000) / Math.min(cx, cy))}"/>`
 					} else if (slideItemObj.options.angleRange) {
 						for (let i = 0; i < 2; i++) {

@@ -1,4 +1,3 @@
-/* PptxGenJS 4.0.1 @ 2026-03-12T02:44:24.425Z */
 'use strict';
 
 var JSZip = require('jszip');
@@ -5466,7 +5465,7 @@ function slideObjectToXml(slide) {
                 }
                 else {
                     strSlideXml += '<a:prstGeom prst="' + slideItemObj.shape + '"><a:avLst>';
-                    if (slideItemObj.options.rectRadius) {
+                    if (slideItemObj.options.rectRadius != null) {
                         strSlideXml += `<a:gd name="adj" fmla="val ${Math.round((slideItemObj.options.rectRadius * EMU * 100000) / Math.min(cx, cy))}"/>`;
                     }
                     else if (slideItemObj.options.angleRange) {
