@@ -2,6 +2,7 @@
  * PptxGenJS: XML Generation
  */
 
+import { imageSize } from 'image-size'
 import {
 	BULLET_TYPES,
 	CRLF,
@@ -75,6 +76,15 @@ const ImageSizingXml = {
 		const bPerc = Math.round(1e5 * (b / imgSize.h))
 		return `<a:srcRect l="${lPerc}" r="${rPerc}" t="${tPerc}" b="${bPerc}"/><a:stretch/>`
 	},
+}
+
+function getImageSizeFromBase64(base64Data: string): { w: number; h: number } | null {
+	const raw = base64Data.includes(',') ? base64Data.split(',')[1] : base64Data
+	try {
+		const result = imageSize(Buffer.from(raw, 'base64'))
+		if (result.width && result.height) return { w: result.width, h: result.height }
+	} catch (_) { /* unrecognized format */ }
+	return null
 }
 
 /**
@@ -596,7 +606,15 @@ function slideObjectToXml (slide: PresSlide | SlideLayout): string {
 					const boxX = getSmartParseNumber(sizing.x || 0, 'X', slide._presLayout)
 					const boxY = getSmartParseNumber(sizing.y || 0, 'Y', slide._presLayout)
 
-					strSlideXml += ImageSizingXml[sizing.type]({ w: imgWidth, h: imgHeight }, { w: boxW, h: boxH, x: boxX, y: boxY })
+					// Use actual image pixel dimensions for sizing (not placement dims)
+					let actualImgSize = { w: imgWidth, h: imgHeight }
+					const imgRel = (slide._relsMedia || []).find(rel => rel.rId === slideItemObj.imageRid)
+					if (imgRel?.data && typeof imgRel.data === 'string') {
+						const parsed = getImageSizeFromBase64(imgRel.data)
+						if (parsed) actualImgSize = parsed
+					}
+
+					strSlideXml += ImageSizingXml[sizing.type](actualImgSize, { w: boxW, h: boxH, x: boxX, y: boxY })
 					imgWidth = boxW
 					imgHeight = boxH
 				} else {
